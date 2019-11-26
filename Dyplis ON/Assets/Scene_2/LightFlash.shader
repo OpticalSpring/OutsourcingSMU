@@ -1,0 +1,32 @@
+﻿Shader "Custom/LightFlash"
+{
+	Properties
+	{
+		_Color("Color", Color) = (1,1,1,1)
+	  _Brightness("Brightness", Range(-1,2)) = 0
+	}
+		SubShader
+	{
+		Tags { "RenderType" = "Opaque" }
+		LOD 200
+
+		CGPROGRAM
+		#pragma surface surf Lambert noambient noshadow
+		#pragma target 3.0
+
+		struct Input
+		{
+			float2 uv_MainTex;
+		};
+
+		fixed4 _Color;
+	  float _Brightness;
+
+		void surf(Input IN, inout SurfaceOutput o)
+		{
+		 o.Emission = _Brightness * _Color;
+		}
+		ENDCG
+	}
+		FallBack "Diffuse"
+}
